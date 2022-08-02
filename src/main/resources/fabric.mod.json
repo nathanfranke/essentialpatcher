@@ -1,36 +1,32 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "essentialpatcher",
   "version": "${version}",
-
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Essential Patcher",
+  "description": "title",
   "authors": [
-    "Me!"
+    "nathanfranke"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/nathanfranke/essentialpatcher/",
+    "sources": "https://github.com/nathanfranke/essentialpatcher/"
   },
-
-  "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
-
+  "license": "MIT",
+  "icon": "assets/essentialpatcher/icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "net.fabricmc.example.ExampleMod"
+    "preLaunch": [
+      "com.nathanfranke.essentialpatcher.EssentialPatcher"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
   ],
-
   "depends": {
     "fabricloader": ">=0.14.6",
     "fabric": "*",
     "minecraft": "~1.19",
-    "java": ">=17"
+    "java": ">=17",
+    "essential-loader": "*"
   },
   "suggests": {
     "another-mod": "*"

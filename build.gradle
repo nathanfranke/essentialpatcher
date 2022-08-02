@@ -1,4 +1,5 @@
 plugins {
+	id 'com.github.johnrengelman.shadow' version '7.1.2'
 	id 'fabric-loom' version '0.12-SNAPSHOT'
 	id 'maven-publish'
 }
@@ -27,6 +28,8 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
+	implementation 'org.java-websocket:Java-WebSocket:1.5.3'
+
 	// Uncomment the following line to enable the deprecated Fabric API modules. 
 	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
 
@@ -54,8 +57,15 @@ java {
 }
 
 jar {
+}
+
+shadowJar {
 	from("LICENSE") {
 		rename { "${it}_${project.archivesBaseName}"}
+	}
+	dependencies {
+		include dependency('org.java-websocket:Java-WebSocket')
+		exclude 'mappings/mappings.tiny'
 	}
 }
 
