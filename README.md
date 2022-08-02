@@ -13,9 +13,9 @@
 ### Installation
 
 1) Understand the security implications of downloading a jar from an unknown source.
-2) Download [Essential](https://essential.gg/) or have it loaded by another mod.
-3) Download the latest [release of EssentialPatcher](https://github.com/nathanfranke/essentialpatcher/releases).
-4) Install both to `mods` on `Fabric 1.19+`.
+2) Download and install [Essential](https://essential.gg/) (or have it loaded by another mod).
+3) Download and install [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api).
+4) Download and install the latest [release of EssentialPatcher](https://github.com/nathanfranke/essentialpatcher/releases).
 
 ### Building
 
