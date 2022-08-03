@@ -28,8 +28,17 @@ class Proxy {
         OUTGOING,
     }
 
-    private final Path outfitsPath = FabricLoader.getInstance().getConfigDir().resolve("essential_patched_outfits.json");
+    private final Path outfitsPath = getOutfitsPath();
     private final JsonArray outfits = loadOutfits(outfitsPath);
+
+    private static Path getOutfitsPath() {
+        try {
+            return FabricLoader.getInstance().getConfigDir().resolve("essential_patched_outfits.json");
+        } catch (Exception ignored) {
+        }
+        String dir = System.getProperty("user.home") + "/.minecraft/essential_patched_outfits.json";
+        return new File(dir).toPath();
+    }
 
     private static JsonArray loadOutfits(Path path) {
         try {
@@ -117,7 +126,7 @@ class Proxy {
 
         @Override
         public void onError(Exception ex) {
-            ex.printStackTrace();
+            new RuntimeException(ex).printStackTrace();
         }
     };
 
@@ -167,8 +176,13 @@ class Proxy {
 
         @Override
         public void onOpen(WebSocket conn, ClientHandshake handshake) {
+            EssentialPatcher.LOGGER.info("Client connected. Forwarding to actual server...");
             try {
-                client.connectBlocking();
+                if (client.getSocket() != null) {
+                    client.reconnectBlocking();
+                } else {
+                    client.connectBlocking();
+                }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -176,6 +190,7 @@ class Proxy {
 
         @Override
         public void onClose(WebSocket conn, int code, String reason, boolean remote) {
+            EssentialPatcher.LOGGER.info("Client disconnected.");
             client.close();
         }
 
@@ -191,7 +206,7 @@ class Proxy {
 
         @Override
         public void onError(WebSocket conn, Exception ex) {
-            ex.printStackTrace();
+            new RuntimeException(ex).printStackTrace();
         }
 
         @Override
@@ -291,13 +306,25 @@ class Proxy {
 public class EssentialPatcher implements PreLaunchEntrypoint {
     public static final Logger LOGGER = LoggerFactory.getLogger("essentialpatcher");
 
+    public static void main(String[] args) {
+        start(true);
+    }
+
     @Override
     public void onPreLaunch() {
+        start(false);
+    }
+
+    public static void start(boolean main) {
         try {
             Proxy proxy = new Proxy();
             proxy.start();
 
             System.setProperty("essential.cm.host", "ws://localhost:" + proxy.getPort());
+
+            if (main) {
+                LOGGER.info("IMPORTANT: Add '-Dessential.cm.host=ws://localhost:" + proxy.getPort() + "' to JVM args on Minecraft.");
+            }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

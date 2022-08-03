@@ -26,3 +26,10 @@ The resulting jar will be in `build/libs/`.
 ### How it works
 
 This plugin spoofs the Essential websocket server and intercepts all packets set to/from it. Only some packets are whitelisted, such as the login handshake packets. Some packets have custom implementations; for example, the outfit change packet will save changes locally.
+
+### Note on support for 1.8-1.18
+
+I don't know how to make a Forge mod, so I can't support Forge 1.8 or other versions. However, this mod supports running standalone.
+
+1) `./gradlew run`.
+2) Add `-Dessential.cm.host=ws://localhost:13372` to Minecraft's launch arguments.

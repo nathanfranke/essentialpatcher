@@ -2,6 +2,7 @@ plugins {
 	id 'com.github.johnrengelman.shadow' version '7.1.2'
 	id 'fabric-loom' version '0.12-SNAPSHOT'
 	id 'maven-publish'
+	id 'application'
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -84,4 +85,12 @@ publishing {
 		// The repositories here will be used for publishing your artifact, not for
 		// retrieving dependencies.
 	}
+}
+
+ext {
+	javaMainClass = "com.nathanfranke.essentialpatcher.EssentialPatcher"
+}
+
+application {
+	mainClassName = javaMainClass
 }
