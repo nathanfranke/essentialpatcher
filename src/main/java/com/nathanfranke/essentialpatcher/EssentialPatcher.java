@@ -320,10 +320,13 @@ public class EssentialPatcher implements PreLaunchEntrypoint {
             Proxy proxy = new Proxy();
             proxy.start();
 
-            System.setProperty("essential.cm.host", "ws://localhost:" + proxy.getPort());
+            String propertyName = "essential.cm.host";
+            String propertyValue = "ws://localhost:" + proxy.getPort();
+
+            System.setProperty(propertyName, propertyValue);
 
             if (main) {
-                LOGGER.info("IMPORTANT: Add '-Dessential.cm.host=ws://localhost:" + proxy.getPort() + "' to JVM args on Minecraft.");
+                LOGGER.info("IMPORTANT: Add '-D{}={}' to JVM args on Minecraft.", propertyName, propertyValue);
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
