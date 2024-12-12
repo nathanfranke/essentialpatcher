@@ -1,3 +1,5 @@
+### ⚠️ Archived. Consider using [EssentialCosmeticsUnlocker by dxxxxy](https://github.com/dxxxxy/EssentialCosmeticsUnlocker)
+
 # EssentialPatcher
 
 ![Unlocked cosmetics](https://raw.githubusercontent.com/nathanfranke/essentialpatcher/main/dist/cosmetics.png)
